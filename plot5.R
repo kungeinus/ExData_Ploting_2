@@ -19,7 +19,7 @@ png("plot5.png",width=480,height=480,units="px",bg="transparent")
 ggp <- ggplot(baltimoreVehiclesNEI,aes(factor(year),Emissions)) +
         geom_bar(stat="identity",fill="red",width=0.75) +
         theme_bw() +  guides(fill=FALSE) +
-        labs(x="year", y=expression("Total PM"[2.5]*" Emission"~(10^{5}~"Tons"))) + 
+        labs(x="year", y=expression("Total PM"[2.5]*" Emission(Tons)")) + 
         labs(title=expression("PM"[2.5]*" Motor Vehicle Source Emissions in Baltimore from 1999-2008"))
 
 print(ggp)

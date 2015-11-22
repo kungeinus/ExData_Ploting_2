@@ -14,12 +14,12 @@ vehiclesNEI <- NEI[NEI$SCC %in% vehiclesSCC,]
 vehiclesBaltimoreNEI <- vehiclesNEI[vehiclesNEI$fips=="24510",]
 vehiclesBaltimoreNEI$city <- "Baltimore City"
 AggBaltimoreNEI<-aggregate(Emissions ~ year + city, vehiclesBaltimoreNEI,sum)
-AggBaltimoreNEI$change<-(1-AggBaltimoreNEI$Emissions/AggBaltimoreNEI$Emissions[1])*100
+AggBaltimoreNEI$change<-(AggBaltimoreNEI$Emissions/AggBaltimoreNEI$Emissions[1]-1)*100
 
 vehiclesLANEI <- vehiclesNEI[vehiclesNEI$fips=="06037",]
 vehiclesLANEI$city <- "Los Angeles County"
 AggLANEI<-aggregate(Emissions ~ year + city, vehiclesLANEI,sum)
-AggLANEI$change<-(1-AggLANEI$Emissions/AggLANEI$Emissions[1])*100
+AggLANEI$change<-(AggLANEI$Emissions/AggLANEI$Emissions[1]-1)*100
 # Combine the two subsets with city name into one data frame
 bothNEI <- rbind(AggBaltimoreNEI,AggLANEI)
 
@@ -31,7 +31,7 @@ ggp1 <- ggplot(bothNEI, aes(x=factor(year), y=Emissions, fill=city)) +
         geom_bar(stat="identity") +
         theme_bw() +
         theme(legend.position = "top")+
-        labs(x="Year", y=expression("Total PM"[2.5]*" Emission"~(10^{3}~"Tons")))
+        labs(x="Year", y=expression("Total PM"[2.5]*" Emission(Tons)"))
 ggp2 <- ggplot(bothNEI, aes(x=year, y=change, color=city)) +
         geom_line(stat="identity",size=2) +
         theme_bw() +
